@@ -17,9 +17,6 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- html2canvas -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
   <style>
 
     body{
@@ -48,7 +45,7 @@
     flex justify-between items-center sticky top-0 z-50">
 
     <h1 class="text-3xl font-bold text-[#6d4c41]">
-      Flora & Craft
+      🌸 Flora & Craft
     </h1>
 
     <button
@@ -79,7 +76,9 @@
 
   <section class="text-center py-20 px-5">
 
-    <h2 class="text-6xl font-bold text-[#6d4c41] mb-6">
+    <h2
+      class="text-6xl font-bold
+      text-[#6d4c41] mb-6">
 
       Crafted With Love
 
@@ -90,7 +89,7 @@
       max-w-2xl mx-auto leading-relaxed">
 
       Handmade bouquets and aesthetic crafts
-      designed specially for gifting.
+      designed specially for gifting ❤️
 
     </p>
 
@@ -121,9 +120,13 @@
 
       <!-- HEADER -->
 
-      <div class="flex justify-between items-center mb-6">
+      <div
+        class="flex justify-between
+        items-center mb-6">
 
-        <h2 class="text-3xl font-bold text-[#6d4c41]">
+        <h2
+          class="text-3xl font-bold
+          text-[#6d4c41]">
 
           Your Cart
 
@@ -147,15 +150,18 @@
 
       <div class="border-t pt-5 mt-5">
 
-        <h3 class="text-2xl font-bold text-[#6d4c41]">
+        <h3
+          class="text-2xl font-bold
+          text-[#6d4c41]">
 
-          Total: ₹<span id="totalAmount">0</span>
+          Total:
+          ₹<span id="totalAmount">0</span>
 
         </h3>
 
       </div>
 
-      <!-- CUSTOMER DETAILS -->
+      <!-- USER DETAILS -->
 
       <div class="mt-6 space-y-4">
 
@@ -163,120 +169,41 @@
           id="customerName"
           type="text"
           placeholder="Your Name"
-          class="w-full border p-4 rounded-xl"/>
+          class="w-full border
+          p-4 rounded-xl"/>
 
         <input
           id="customerAddress"
           type="text"
           placeholder="Delivery Address"
-          class="w-full border p-4 rounded-xl"/>
+          class="w-full border
+          p-4 rounded-xl"/>
 
       </div>
 
-      <!-- BUTTON -->
+      <!-- PAYMENT BUTTON -->
 
       <button
-        onclick="generateOrderCard()"
-        class="w-full mt-6 bg-green-500
-        hover:bg-green-600 text-white
-        py-4 rounded-xl text-lg
-        font-semibold transition">
+        onclick="payNow()"
+        class="w-full mt-6
+        bg-purple-500 hover:bg-purple-600
+        text-white py-4 rounded-xl
+        text-lg font-semibold transition">
 
-        Place Order
+        Pay With UPI 💳
 
       </button>
 
-    </div>
-
-  </div>
-
-  <!-- ORDER CARD -->
-
-  <div
-    id="orderCard"
-    class="hidden fixed inset-0
-    bg-black bg-opacity-60
-    flex justify-center items-center z-50">
-
-    <div
-      id="cardContent"
-      class="bg-[#fffaf5]
-      w-[90%] md:w-[450px]
-      rounded-[30px]
-      p-8 shadow-2xl">
-
-      <!-- BRAND -->
-
-      <h2
-        class="text-4xl font-bold
-        text-center text-[#6d4c41]">
-
-        🌸 Flora & Craft
-
-      </h2>
-
-      <p class="text-center text-gray-500 mt-2">
-
-        Handmade With Love
-
-      </p>
-
-      <!-- USER DETAILS -->
-
-      <div class="mt-8">
-
-        <p class="font-semibold text-lg">
-
-          👤 <span id="cardName"></span>
-
-        </p>
-
-        <p class="text-gray-600 mt-2">
-
-          📍 <span id="cardAddress"></span>
-
-        </p>
-
-      </div>
-
-      <!-- PRODUCTS -->
-
-      <div
-        id="cardProducts"
-        class="mt-8 space-y-4">
-
-      </div>
-
-      <!-- TOTAL -->
-
-      <div
-        class="border-t mt-8 pt-5
-        flex justify-between items-center">
-
-        <h3
-          class="text-2xl font-bold text-[#6d4c41]">
-
-          Total
-
-        </h3>
-
-        <h3
-          id="cardTotal"
-          class="text-2xl font-bold text-[#8d6e63]">
-
-        </h3>
-
-      </div>
-
-      <!-- SHARE -->
+      <!-- WHATSAPP -->
 
       <button
-        onclick="sendToWhatsApp()"
-        class="w-full mt-8 bg-green-500
-        hover:bg-green-600 text-white
-        py-4 rounded-xl text-lg font-semibold">
+        onclick="sendWhatsApp()"
+        class="w-full mt-4
+        bg-green-500 hover:bg-green-600
+        text-white py-4 rounded-xl
+        text-lg font-semibold transition">
 
-        Share To WhatsApp
+        Send Order To WhatsApp
 
       </button>
 
@@ -287,7 +214,7 @@
   <!-- FLOATING WHATSAPP -->
 
   <a
-    href="https://wa.me/919876543210"
+    href="https://wa.me/919849347937"
     target="_blank"
     class="fixed bottom-6 right-6
     bg-green-500 w-16 h-16
@@ -349,6 +276,8 @@
 
     ];
 
+    // CART
+
     let cart = [];
 
     // RENDER PRODUCTS
@@ -372,7 +301,8 @@
           <div class="p-6">
 
             <h3
-              class="text-2xl font-bold text-[#6d4c41]">
+              class="text-2xl font-bold
+              text-[#6d4c41]">
 
               ${product.name}
 
@@ -383,7 +313,8 @@
               items-center mt-5">
 
               <p
-                class="text-2xl font-bold text-[#8d6e63]">
+                class="text-2xl font-bold
+                text-[#8d6e63]">
 
                 ₹${product.price}
 
@@ -462,7 +393,8 @@
             <div>
 
               <h4
-                class="font-bold text-lg text-[#6d4c41]">
+                class="font-bold text-lg
+                text-[#6d4c41]">
 
                 ${item.name}
 
@@ -524,7 +456,8 @@
 
       });
 
-      document.getElementById("totalAmount").innerText = total;
+      document.getElementById("totalAmount").innerText =
+        total;
 
       const totalItems =
         cart.reduce(
@@ -590,34 +523,9 @@
 
     }
 
-    // GENERATE ORDER CARD
+    // PAY NOW
 
-    function generateOrderCard(){
-
-      const name =
-        document.getElementById("customerName").value;
-
-      const address =
-        document.getElementById("customerAddress").value;
-
-      if(cart.length === 0){
-
-        alert("Cart is empty!");
-
-        return;
-
-      }
-
-      document.getElementById("cardName").innerText =
-        name;
-
-      document.getElementById("cardAddress").innerText =
-        address;
-
-      const cardProducts =
-        document.getElementById("cardProducts");
-
-      cardProducts.innerHTML = "";
+    function payNow(){
 
       let total = 0;
 
@@ -625,149 +533,86 @@
 
         total += item.price * item.quantity;
 
-        cardProducts.innerHTML += `
-
-          <div
-            class="flex justify-between
-            items-center bg-white
-            rounded-2xl p-4 shadow">
-
-            <div>
-
-              <h4 class="font-bold">
-
-                ${item.name}
-
-              </h4>
-
-              <p class="text-gray-500">
-
-                Qty: ${item.quantity}
-
-              </p>
-
-            </div>
-
-            <p
-              class="font-bold text-[#8d6e63]">
-
-              ₹${item.price * item.quantity}
-
-            </p>
-
-          </div>
-
-        `;
-
       });
 
-      document.getElementById("cardTotal").innerText =
-        `₹${total}`;
+      // YOUR UPI ID
 
-      document
-        .getElementById("orderCard")
-        .classList.remove("hidden");
+      const upiID =
+        "8074197277-3@ybl";
+
+      // BUSINESS NAME
+
+      const name =
+        "FloraCraft";
+
+      // UPI LINK
+
+      const upiURL =
+`upi://pay?pa=${upiID}&pn=${name}&am=${total}&cu=INR`;
+
+      // OPEN PAYMENT APP
+
+      window.location.href =
+        upiURL;
 
     }
 
-    // SEND TO WHATSAPP
+    // SEND WHATSAPP
 
-    async function sendToWhatsApp(){
+    function sendWhatsApp(){
 
-      const card =
-        document.getElementById("cardContent");
+      const name =
+        document.getElementById("customerName").value;
 
-      // CREATE IMAGE
+      const address =
+        document.getElementById("customerAddress").value;
 
-      const canvas =
-        await html2canvas(card);
+      let message =
 
-      // CREATE BLOB
+`🌸 *New Flora & Craft Order* 🌸
 
-      canvas.toBlob(async (blob) => {
+👤 Name: ${name}
 
-        // CREATE FILE
+📍 Address:
+${address}
 
-        const file = new File(
-          [blob],
-          "flora-order.png",
-          {
-            type: "image/png"
-          }
-        );
+🛍️ Products:
+`;
 
-        // MOBILE SHARE SUPPORT
+      let total = 0;
 
-        if(
-          navigator.canShare &&
-          navigator.canShare({
-            files: [file]
-          })
-        ){
+      cart.forEach(item => {
 
-          try{
+        message +=
+`
+• ${item.name}
+  Qty: ${item.quantity}
+  Amount: ₹${item.price * item.quantity}
+`;
 
-            await navigator.share({
-
-              title:
-                "Flora & Craft Order",
-
-              text:
-`🌸 My Flora & Craft Order
-
-Thank you ❤️`,
-
-              files: [file]
-
-            });
-
-          } catch(error){
-
-            console.log(error);
-
-          }
-
-        } else {
-
-          // DESKTOP FALLBACK
-
-          const link =
-            document.createElement("a");
-
-          link.download =
-            "flora-order.png";
-
-          link.href =
-            URL.createObjectURL(blob);
-
-          link.click();
-
-          // OPEN WHATSAPP
-
-          const phone =
-            "919849347937";
-
-          const message =
-`Hello 🌸
-
-I have placed an order from Flora & Craft.
-
-Please find attached order card image.`;
-
-          const url =
-`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-          window.open(url, "_blank");
-
-          alert(
-`Order card downloaded successfully!
-
-Please attach the downloaded image in WhatsApp.`
-          );
-
-        }
+        total += item.price * item.quantity;
 
       });
+
+      message +=
+`
+
+💰 Total Amount: ₹${total}
+
+Payment Status: Paid ✅
+
+Thank you ❤️
+`;
+
+      // YOUR WHATSAPP NUMBER
+
+      const phone =
+        "919849347937";
+
+      const url =
+`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+      window.open(url, "_blank");
 
     }
 
