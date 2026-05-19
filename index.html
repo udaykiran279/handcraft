@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Flora & Craft</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- html2canvas -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+  <style>
+
+    body{
+      font-family: 'Poppins', sans-serif;
+      background: #f8f1ea;
+    }
+
+    .product-card{
+      transition: 0.4s;
+    }
+
+    .product-card:hover{
+      transform: translateY(-10px);
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav
+    class="bg-white shadow-md px-8 py-5
+    flex justify-between items-center sticky top-0 z-50">
+
+    <h1 class="text-3xl font-bold text-[#6d4c41]">
+      Flora & Craft
+    </h1>
+
+    <button
+      onclick="openCart()"
+      class="bg-[#8d6e63]
+      hover:bg-[#6d4c41]
+      text-white px-5 py-3
+      rounded-full transition relative">
+
+      Cart
+
+      <span
+        id="cartCount"
+        class="absolute -top-2 -right-2
+        bg-red-500 text-white text-xs
+        w-6 h-6 flex items-center
+        justify-center rounded-full">
+
+        0
+
+      </span>
+
+    </button>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="text-center py-20 px-5">
+
+    <h2 class="text-6xl font-bold text-[#6d4c41] mb-6">
+
+      Crafted With Love
+
+    </h2>
+
+    <p
+      class="text-gray-700 text-xl
+      max-w-2xl mx-auto leading-relaxed">
+
+      Handmade bouquets and aesthetic crafts
+      designed specially for gifting.
+
+    </p>
+
+  </section>
+
+  <!-- PRODUCTS -->
+
+  <section
+    id="productContainer"
+    class="grid md:grid-cols-3 gap-10 px-8 pb-20">
+
+  </section>
+
+  <!-- CART MODAL -->
+
+  <div
+    id="cartModal"
+    class="hidden fixed inset-0
+    bg-black bg-opacity-50
+    flex justify-center items-center z-50">
+
+    <div
+      class="bg-white w-[95%]
+      md:w-[600px]
+      rounded-[30px]
+      p-8 max-h-[90vh]
+      overflow-auto">
+
+      <!-- HEADER -->
+
+      <div class="flex justify-between items-center mb-6">
+
+        <h2 class="text-3xl font-bold text-[#6d4c41]">
+
+          Your Cart
+
+        </h2>
+
+        <button
+          onclick="closeCart()"
+          class="text-red-500 text-2xl">
+
+          ✕
+
+        </button>
+
+      </div>
+
+      <!-- CART ITEMS -->
+
+      <div id="cartItems"></div>
+
+      <!-- TOTAL -->
+
+      <div class="border-t pt-5 mt-5">
+
+        <h3 class="text-2xl font-bold text-[#6d4c41]">
+
+          Total: ₹<span id="totalAmount">0</span>
+
+        </h3>
+
+      </div>
+
+      <!-- CUSTOMER DETAILS -->
+
+      <div class="mt-6 space-y-4">
+
+        <input
+          id="customerName"
+          type="text"
+          placeholder="Your Name"
+          class="w-full border p-4 rounded-xl"/>
+
+        <input
+          id="customerAddress"
+          type="text"
+          placeholder="Delivery Address"
+          class="w-full border p-4 rounded-xl"/>
+
+      </div>
+
+      <!-- BUTTON -->
+
+      <button
+        onclick="generateOrderCard()"
+        class="w-full mt-6 bg-green-500
+        hover:bg-green-600 text-white
+        py-4 rounded-xl text-lg
+        font-semibold transition">
+
+        Place Order
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ORDER CARD -->
+
+  <div
+    id="orderCard"
+    class="hidden fixed inset-0
+    bg-black bg-opacity-60
+    flex justify-center items-center z-50">
+
+    <div
+      id="cardContent"
+      class="bg-[#fffaf5]
+      w-[90%] md:w-[450px]
+      rounded-[30px]
+      p-8 shadow-2xl">
+
+      <!-- BRAND -->
+
+      <h2
+        class="text-4xl font-bold
+        text-center text-[#6d4c41]">
+
+        🌸 Flora & Craft
+
+      </h2>
+
+      <p class="text-center text-gray-500 mt-2">
+
+        Handmade With Love
+
+      </p>
+
+      <!-- USER DETAILS -->
+
+      <div class="mt-8">
+
+        <p class="font-semibold text-lg">
+
+          👤 <span id="cardName"></span>
+
+        </p>
+
+        <p class="text-gray-600 mt-2">
+
+          📍 <span id="cardAddress"></span>
+
+        </p>
+
+      </div>
+
+      <!-- PRODUCTS -->
+
+      <div
+        id="cardProducts"
+        class="mt-8 space-y-4">
+
+      </div>
+
+      <!-- TOTAL -->
+
+      <div
+        class="border-t mt-8 pt-5
+        flex justify-between items-center">
+
+        <h3
+          class="text-2xl font-bold text-[#6d4c41]">
+
+          Total
+
+        </h3>
+
+        <h3
+          id="cardTotal"
+          class="text-2xl font-bold text-[#8d6e63]">
+
+        </h3>
+
+      </div>
+
+      <!-- SHARE -->
+
+      <button
+        onclick="sendToWhatsApp()"
+        class="w-full mt-8 bg-green-500
+        hover:bg-green-600 text-white
+        py-4 rounded-xl text-lg font-semibold">
+
+        Share To WhatsApp
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- FLOATING WHATSAPP -->
+
+  <a
+    href="https://wa.me/919876543210"
+    target="_blank"
+    class="fixed bottom-6 right-6
+    bg-green-500 w-16 h-16
+    rounded-full flex items-center
+    justify-center shadow-2xl
+    text-white text-3xl">
+
+    💬
+
+  </a>
+
+  <script>
+
+    // PRODUCTS
+
+    const products = [
+
+      {
+        id: 1,
+        name: "Red Velvet Bouquet",
+        price: 799,
+        image: "images/img1.jpeg"
+      },
+
+      {
+        id: 2,
+        name: "Colorful Flower Set",
+        price: 499,
+        image: "images/img2.jpeg"
+      },
+
+      {
+        id: 3,
+        name: "Custom Bouquet",
+        price: 999,
+        image: "images/img3.jpeg"
+      },
+
+      {
+        id: 4,
+        name: "Mini Flowers",
+        price: 299,
+        image: "images/img4.jpeg"
+      },
+
+      {
+        id: 5,
+        name: "Rose Collection",
+        price: 649,
+        image: "images/img5.jpeg"
+      },
+
+      {
+        id: 6,
+        name: "Festival Bouquet",
+        price: 899,
+        image: "images/img6.jpeg"
+      }
+
+    ];
+
+    let cart = [];
+
+    // RENDER PRODUCTS
+
+    const container =
+      document.getElementById("productContainer");
+
+    products.forEach(product => {
+
+      container.innerHTML += `
+
+        <div
+          class="product-card bg-white
+          rounded-[30px]
+          overflow-hidden shadow-lg">
+
+          <img
+            src="${product.image}"
+            class="w-full h-80 object-cover"/>
+
+          <div class="p-6">
+
+            <h3
+              class="text-2xl font-bold text-[#6d4c41]">
+
+              ${product.name}
+
+            </h3>
+
+            <div
+              class="flex justify-between
+              items-center mt-5">
+
+              <p
+                class="text-2xl font-bold text-[#8d6e63]">
+
+                ₹${product.price}
+
+              </p>
+
+              <button
+                onclick="addToCart(${product.id})"
+                class="bg-[#8d6e63]
+                hover:bg-[#6d4c41]
+                text-white px-5 py-3
+                rounded-full">
+
+                Add
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+    // ADD TO CART
+
+    function addToCart(id){
+
+      const item =
+        products.find(product => product.id === id);
+
+      const existing =
+        cart.find(product => product.id === id);
+
+      if(existing){
+
+        existing.quantity++;
+
+      } else {
+
+        cart.push({
+          ...item,
+          quantity: 1
+        });
+
+      }
+
+      updateCart();
+
+    }
+
+    // UPDATE CART
+
+    function updateCart(){
+
+      const cartItems =
+        document.getElementById("cartItems");
+
+      cartItems.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach(item => {
+
+        total += item.price * item.quantity;
+
+        cartItems.innerHTML += `
+
+          <div
+            class="flex justify-between
+            items-center border-b
+            pb-5 mb-5">
+
+            <div>
+
+              <h4
+                class="font-bold text-lg text-[#6d4c41]">
+
+                ${item.name}
+
+              </h4>
+
+              <p class="text-gray-600">
+
+                ₹${item.price}
+
+              </p>
+
+            </div>
+
+            <!-- QUANTITY -->
+
+            <div class="flex items-center gap-3">
+
+              <!-- MINUS -->
+
+              <button
+                onclick="decreaseQuantity(${item.id})"
+                class="bg-[#d7ccc8]
+                hover:bg-[#bcaaa4]
+                w-10 h-10 rounded-full
+                text-xl font-bold">
+
+                -
+
+              </button>
+
+              <!-- COUNT -->
+
+              <span
+                class="text-xl font-bold
+                w-8 text-center">
+
+                ${item.quantity}
+
+              </span>
+
+              <!-- PLUS -->
+
+              <button
+                onclick="increaseQuantity(${item.id})"
+                class="bg-[#8d6e63]
+                hover:bg-[#6d4c41]
+                text-white w-10 h-10
+                rounded-full text-xl font-bold">
+
+                +
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      });
+
+      document.getElementById("totalAmount").innerText = total;
+
+      const totalItems =
+        cart.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+
+      document.getElementById("cartCount").innerText =
+        totalItems;
+
+    }
+
+    // INCREASE
+
+    function increaseQuantity(id){
+
+      const item =
+        cart.find(product => product.id === id);
+
+      item.quantity++;
+
+      updateCart();
+
+    }
+
+    // DECREASE
+
+    function decreaseQuantity(id){
+
+      const item =
+        cart.find(product => product.id === id);
+
+      item.quantity--;
+
+      if(item.quantity <= 0){
+
+        cart =
+          cart.filter(product => product.id !== id);
+
+      }
+
+      updateCart();
+
+    }
+
+    // OPEN CART
+
+    function openCart(){
+
+      document
+        .getElementById("cartModal")
+        .classList.remove("hidden");
+
+    }
+
+    // CLOSE CART
+
+    function closeCart(){
+
+      document
+        .getElementById("cartModal")
+        .classList.add("hidden");
+
+    }
+
+    // GENERATE ORDER CARD
+
+    function generateOrderCard(){
+
+      const name =
+        document.getElementById("customerName").value;
+
+      const address =
+        document.getElementById("customerAddress").value;
+
+      if(cart.length === 0){
+
+        alert("Cart is empty!");
+
+        return;
+
+      }
+
+      document.getElementById("cardName").innerText =
+        name;
+
+      document.getElementById("cardAddress").innerText =
+        address;
+
+      const cardProducts =
+        document.getElementById("cardProducts");
+
+      cardProducts.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach(item => {
+
+        total += item.price * item.quantity;
+
+        cardProducts.innerHTML += `
+
+          <div
+            class="flex justify-between
+            items-center bg-white
+            rounded-2xl p-4 shadow">
+
+            <div>
+
+              <h4 class="font-bold">
+
+                ${item.name}
+
+              </h4>
+
+              <p class="text-gray-500">
+
+                Qty: ${item.quantity}
+
+              </p>
+
+            </div>
+
+            <p
+              class="font-bold text-[#8d6e63]">
+
+              ₹${item.price * item.quantity}
+
+            </p>
+
+          </div>
+
+        `;
+
+      });
+
+      document.getElementById("cardTotal").innerText =
+        `₹${total}`;
+
+      document
+        .getElementById("orderCard")
+        .classList.remove("hidden");
+
+    }
+
+    // SEND TO WHATSAPP
+
+    async function sendToWhatsApp(){
+
+      const card =
+        document.getElementById("cardContent");
+
+      // CREATE IMAGE
+
+      const canvas =
+        await html2canvas(card);
+
+      // CREATE BLOB
+
+      canvas.toBlob(async (blob) => {
+
+        // CREATE FILE
+
+        const file = new File(
+          [blob],
+          "flora-order.png",
+          {
+            type: "image/png"
+          }
+        );
+
+        // MOBILE SHARE SUPPORT
+
+        if(
+          navigator.canShare &&
+          navigator.canShare({
+            files: [file]
+          })
+        ){
+
+          try{
+
+            await navigator.share({
+
+              title:
+                "Flora & Craft Order",
+
+              text:
+`🌸 My Flora & Craft Order
+
+Thank you ❤️`,
+
+              files: [file]
+
+            });
+
+          } catch(error){
+
+            console.log(error);
+
+          }
+
+        } else {
+
+          // DESKTOP FALLBACK
+
+          const link =
+            document.createElement("a");
+
+          link.download =
+            "flora-order.png";
+
+          link.href =
+            URL.createObjectURL(blob);
+
+          link.click();
+
+          // OPEN WHATSAPP
+
+          const phone =
+            "919849347937";
+
+          const message =
+`Hello 🌸
+
+I have placed an order from Flora & Craft.
+
+Please find attached order card image.`;
+
+          const url =
+`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+          window.open(url, "_blank");
+
+          alert(
+`Order card downloaded successfully!
+
+Please attach the downloaded image in WhatsApp.`
+          );
+
+        }
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
